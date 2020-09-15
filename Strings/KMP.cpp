@@ -59,9 +59,3 @@ void KMP(string s, string p){
         }
     }
 }
-
-int main(){
-    string s, t;
-    cin >> s >> t;
-    KMP(s, t);
-}
