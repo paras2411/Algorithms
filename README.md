@@ -5,9 +5,12 @@ Algorithms useful for CS graduates
 * BFS
 * DFS
 * KruskalMST
+* PrimMST
 
 ### Mathematics
 * nCr
+* Generate all combinations
 
 ### Strings
 * Z-Algorithms
+* KMP Algorithm
