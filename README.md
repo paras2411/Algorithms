@@ -3,6 +3,7 @@ Algorithms useful for CS graduates
 
 ### Data Structures
 * Segment Tree
+* Binary Indexed Tree/ Fenwick Tree
 
 ### Graphs
 * BFS
@@ -15,6 +16,7 @@ Algorithms useful for CS graduates
 * nCr
 * Generate all combinations
 * Sieve of Eratosthenes
+* Matrix Exponentiation
 
 ### Strings
 * Z-Algorithm
