@@ -11,6 +11,7 @@ Algorithms useful for CS graduates
 * KruskalMST
 * PrimMST
 * Dijkstra
+* Topological Sort
 
 ### Mathematics
 * nCr
