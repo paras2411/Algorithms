@@ -18,95 +18,69 @@ mat -> which stores the final result mat^p
 mul -> which is updated everytime exponent is divided by 2
 p -> power of which matrix need
 */
-void pwr(int (&mat)[N][N], int mul[N][N], int p){
 
-    while(p > 0){
-        int cur[N][N];
-        if(p&1){
-            for(int i=0; i<N; i++){
-                for(int j=0; j<N; j++){
-                    cur[i][j] = 0;
-                    for(int k=0; k<N; k++){
-                        cur[i][j] += (mat[i][k]*mul[k][j])%mod;
-                        cur[i][j] %= mod;
-                    }
-                }
+void multiply(int a[N][N], int b[N][N]) { 
+    
+    int mul[N][N]; 
+    for (int i = 0; i < N; i++) { 
+        for (int j = 0; j < N; j++) { 
+            mul[i][j] = 0; 
+            for (int k = 0; k < N; k++){
+                mul[i][j] += a[i][k]*b[k][j]; 
+                mul[i][j] %= mod;
             }
-        }
-        for(int i=0; i<N; i++){
-            for(int j=0; j<N; j++){
-                mat[i][j] = cur[i][j];
-            }
-        }
-        
-        for(int i=0; i<N; i++){
-            for(int j=0; j<N; j++){
-                cur[i][j] = 0;
-                for(int k=0; k<N; k++){
-                    cur[i][j] += (mul[i][k]*mul[k][j])%mod;
-                    cur[i][j] %= mod;
-                }
-            }
-        }
+        } 
+    } 
+  
+    for (int i=0; i<N; i++) 
+        for (int j=0; j<N; j++) 
+            a[i][j] = mul[i][j];  // Updating our matrix 
+} 
 
-        for(int i=0; i<N; i++){
-            for(int j=0; j<N; j++){
-                mul[i][j] = cur[i][j];
-            }
-        }
+int power(int F[N][N], int n) {
 
-        p /= 2;
+    int M[N][N];
+    for(int i=0; i<N; i++){
+        for(int j=0; j<N; j++){
+            M[i][j] = (i==j)? 1: 0;
+        }
     }
-}
+    
+    while(n > 0){
+        
+        if(n&1){
+            multiply(M, F);
+        }
+        multiply(F, F);
+        
+        n /= 2;
+    }
+    return M[0][0];
+} 
+
 
 int32_t main(){
     
     fast_cin;
+    int n;
+    int a, b, c, d, e;
     int t;
     cin >> t;
     while(t--){
-    
-        int con[N];
-        int n;
-        for(int i=0; i<N; i++){
-            cin >> con[i];
-        }
+        cin >> a >> b >> c >> d >> e;
         cin >> n;
-        
         if(n < 5){
             cout << n-1;
-            continue;
+            return 0;
         }
-
-        int mat[N][N], mul[N][N];
-        for(int i=0; i<N; i++){
-            for(int j=0; j<N; j++){
-                mat[i][j] = (i == j)? 1: 0;
-                if(i == 0){
-                    mul[i][j] = con[j]%mod;
-                }
-                else{
-                    mul[i][j] = (i == j+1)? 1: 0;
-                }
-            }
-        }
-        
-        
-        pwr(mat, mul, n-4);
-        
-        int ini[N][1]={{3}, {2}, {1}, {0}, {1}}, ans[N][1];
-
-        for(int i=0; i<N; i++){
-            for(int j=0; j<1; j++){
-                ans[i][j] = 0;
-                for(int k=0; k<N; k++){
-                    ans[i][j] += (mat[i][k] * ini[k][j])%mod;
-                    ans[i][j] %= mod;
-                }
-            }
-        }
-
-        cout << ans[0][0] << endl;
+        int f[N][N] = {
+            {a%mod, b%mod, c%mod, d%mod, e%mod}, 
+            {1, 0, 0, 0, 0},
+            {0, 1, 0, 0, 0},
+            {0, 0, 1, 0, 0}, 
+            {0, 0, 0, 1, 0}
+        };
+        cout << power(f, n-4) << endl;
     }
     return 0;
 }
