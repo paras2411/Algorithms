@@ -4,6 +4,7 @@ using namespace std;
 const int N = 1e5;
 vector<int> adj[N], tr[N];
 int vis[N];
+int n;
 stack<int> st;
 
 void dfs(int u){
@@ -34,7 +35,10 @@ void SCC(int u){
     vector<vector<int>> components;
     
     //running dfs on original graph to build the stack
-    dfs(u);
+    for(int i=1; i<=n; i++){
+        if(!vis[i])
+            dfs(u);
+    }
     memset(vis, 0, sizeof(vis));
     
     while(!st.empty()){
@@ -80,7 +84,7 @@ void SCC(int u){
 
 int main(){
 
-    int n, m;
+    int m;
     cin >> n >> m;
     int u, v;
     for(int i=0; i<m; i++){
